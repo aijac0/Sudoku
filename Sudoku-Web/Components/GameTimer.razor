@@ -1,0 +1,73 @@
+@using System.Timers
+@using Sudoku_Library
+@inject BoardService BoardService
+
+<p>@FormatElapsedTime(elapsedTime)</p>
+
+@code {
+    private Board Board => BoardService.GetBoard();
+    private int elapsedTime = 0; // Time in seconds
+    private Timer timer;
+    
+    private string FormatElapsedTime(int seconds)
+    {
+        TimeSpan time = TimeSpan.FromSeconds(seconds);
+        return time.ToString(@"mm\:ss");
+    }
+
+    private Timer InitializeTimer()
+    {
+        // Initialize timer with 1-second interval (1000ms)
+        Timer newTimer = new Timer(1000);
+        newTimer.Elapsed += UpdateTime;
+        newTimer.Start();
+        return newTimer;
+    }
+
+    protected override void OnInitialized()
+    {
+        timer = InitializeTimer();
+        
+        // Add game event callbacks
+        BoardService.BoardReset += HandleGameReset;
+        BoardService.BoardChanged += HandleGameChanged;
+    }
+    
+    private void UpdateTime(object? sender, ElapsedEventArgs e)
+    {
+        elapsedTime++;
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void HandleGameReset()
+    {
+        elapsedTime = 0;
+        StateHasChanged();
+        timer?.Dispose();
+        timer = InitializeTimer();
+        HandleGameChanged();
+    }
+    
+    private void HandleGameChanged()
+    {
+        if (Board.GetState() == State.Solved)
+        {
+            timer.Stop();
+        }
+        else
+        {
+            timer.Start();
+        }
+    }
+    
+    public void Dispose()
+    {
+        // Clean up the timer
+        timer?.Dispose();
+        
+        // Remove game event callbacks
+        BoardService.BoardReset -= HandleGameReset;
+        BoardService.BoardChanged -= HandleGameChanged;
+    }
+
+}

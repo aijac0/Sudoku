@@ -1,0 +1,48 @@
+@inject BoardService BoardService
+
+<div class="dropdown">
+    <button class="dropdown-button"
+            @onclick="HandleClick">
+        New ▼
+    </button>
+
+    <div class="dropdown-content">
+        <select @bind="size">
+            @foreach (var number in sizeOptions)
+            {
+                <option value=@number>
+                    @(number + "×" + number)
+                </option>
+            }
+        </select>
+
+        <select @bind="difficulty">
+            @foreach (var diff in difficultyOptions)
+            {
+                <option value="@diff">@diff</option>
+            }
+        </select>
+    </div>
+</div>
+
+@code {
+    private int[] sizeOptions = [4, 9];
+    public int size = 9;
+    
+    private string[] difficultyOptions = ["easy", "medium", "hard", "secret"];
+    public string difficulty = "medium";
+    private float FillPercentage =>
+        difficulty switch
+        {
+            "easy" => 0.50f,
+            "medium" => 0.35f,
+            "hard" => 0.20f,
+            _ => 1.00f
+        };
+
+    private void HandleClick()
+    {
+        BoardService.ResetBoard(size, FillPercentage);
+    }
+
+}

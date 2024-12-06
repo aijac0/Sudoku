@@ -1,0 +1,48 @@
+@rendermode InteractiveServer
+
+<input class="@($"cell {(cell.IsValid || entry == "" ? "valid" : "invalid")} {(cell.IsFixed ? "fixed" : "unfixed")}")"
+       type="text"
+       maxlength="1"
+       readonly="@cell.IsFixed"
+       value=@entry
+       @oninput="HandleInput"
+/>
+
+@code {
+    
+    [Parameter]
+    [EditorRequired]
+    public Sudoku_Library.Cell cell { get; set; } 
+    
+    [Parameter]
+    [EditorRequired]
+    public EventCallback<byte> OnCellChanged { get; set; }
+    
+    private string entry = "";
+
+    protected override void OnInitialized()
+    {
+        entry = cell.Value == 0 ? "" : cell.Value.ToString();
+    }
+
+    protected override void OnParametersSet()
+    {
+        if (cell.Value != 0)
+        {
+            
+        } 
+    }
+
+    private void HandleInput(ChangeEventArgs e)
+    {
+        // Update entry
+        entry = e.Value?.ToString() ?? "";
+        
+        // Parse new value
+        if (!byte.TryParse(entry, out var parsedValue))
+        {
+            parsedValue = 0;
+        }
+        OnCellChanged.InvokeAsync(parsedValue);  
+    }
+}

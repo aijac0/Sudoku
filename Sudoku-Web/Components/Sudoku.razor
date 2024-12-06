@@ -1,0 +1,62 @@
+@inject BoardService BoardService
+@using Sudoku_Library
+@using Services
+
+<!--
+<div class="grid">
+@for (int i = 0; i < Board.Subsize; i++)
+{
+    for (int j = 0; j < Board.Subsize; j++)
+    {
+        <div class="subgrid">
+        @for (int k = 0; k < Board.Size; k++)
+        {
+            int row = (i * Board.Subsize) + (k / Board.Subsize);
+            int col = (j * Board.Subsize) + (k % Board.Subsize);
+            <Entry Cell=@Board.Get(row, col) UpdateCell="@(value => UpdateCell(row, col, value))" />
+        }
+        </div>
+        
+    }
+}
+</div>
+-->
+
+@if (Board.GetState() == State.Solved)
+{
+    <SudokuSolved />
+}
+else
+{
+    <SudokuUnsolved />
+}
+
+@code {
+    Board Board => BoardService.GetBoard();
+    
+    protected override void OnInitialized()
+    {
+        BoardService.BoardChanged += OnBoardChanged;
+        BoardService.BoardReset += OnBoardChanged;
+    }
+
+    protected void OnBoardChanged()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    protected void UpdateCell(int row, int col, byte value)
+    {
+        if (Board.Get(row, col).Value != value)
+        {
+            Board.Set(row, col, value);
+            BoardService.OnBoardChanged();
+        }
+    }
+
+    public void Dispose()
+    {
+        BoardService.BoardChanged -= OnBoardChanged;
+        BoardService.BoardReset -= OnBoardChanged;
+    }
+}

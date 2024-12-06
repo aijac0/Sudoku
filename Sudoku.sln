@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku-Library", "Sudoku-Library\Sudoku-Library.csproj", "{D7966C3B-FAC5-40EC-86EE-71B77989520A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku-Console", "Sudoku-Console\Sudoku-Console.csproj", "{0F257AF5-7460-44A9-9A66-1C93DCDC57F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sudoku-Web", "Sudoku-Web\Sudoku-Web.csproj", "{050C3D55-648F-4A27-9E3F-2C624E3A4F9E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D7966C3B-FAC5-40EC-86EE-71B77989520A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7966C3B-FAC5-40EC-86EE-71B77989520A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7966C3B-FAC5-40EC-86EE-71B77989520A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7966C3B-FAC5-40EC-86EE-71B77989520A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F257AF5-7460-44A9-9A66-1C93DCDC57F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F257AF5-7460-44A9-9A66-1C93DCDC57F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F257AF5-7460-44A9-9A66-1C93DCDC57F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F257AF5-7460-44A9-9A66-1C93DCDC57F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{050C3D55-648F-4A27-9E3F-2C624E3A4F9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{050C3D55-648F-4A27-9E3F-2C624E3A4F9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{050C3D55-648F-4A27-9E3F-2C624E3A4F9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{050C3D55-648F-4A27-9E3F-2C624E3A4F9E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

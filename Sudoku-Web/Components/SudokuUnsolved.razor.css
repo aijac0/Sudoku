@@ -1,0 +1,41 @@
+.board {
+    display: grid;
+    grid-template-columns: repeat(var(--board-size), 50px);
+    grid-template-rows: repeat(var(--board-size), 50px);
+    background:
+            linear-gradient(to right, black 1px, transparent 1px),
+            linear-gradient(to bottom, black 1px, transparent 1px);
+    width: max-content;
+    height: max-content;
+    gap: 0;
+}
+
+.cell {
+    text-align: center;
+    font-size: 20px;  /* Adjust font size */
+    aspect-ratio: 1 / 1;
+    box-sizing: border-box;  /* Ensures the border is included in the cell's dimensions */
+    outline: none;
+}
+
+.cell.valid {
+    color: darkblue;
+}
+
+.cell.invalid {
+    color: red;
+}
+
+.cell.unfixed {
+
+    font-style: italic;
+}
+
+.cell.fixed {
+    color: black;
+    font-weight: bolder;
+}
+
+.cell.invalid.fixed {
+    color: red;
+}

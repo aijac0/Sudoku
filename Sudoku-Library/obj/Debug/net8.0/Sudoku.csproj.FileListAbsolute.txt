@@ -1,0 +1,11 @@
+/Users/aijaco/RiderProjects/Sudoku/Sudoku/bin/Debug/net8.0/Sudoku.deps.json
+/Users/aijaco/RiderProjects/Sudoku/Sudoku/bin/Debug/net8.0/Sudoku.dll
+/Users/aijaco/RiderProjects/Sudoku/Sudoku/bin/Debug/net8.0/Sudoku.pdb
+/Users/aijaco/RiderProjects/Sudoku/Sudoku/obj/Debug/net8.0/Sudoku.GeneratedMSBuildEditorConfig.editorconfig
+/Users/aijaco/RiderProjects/Sudoku/Sudoku/obj/Debug/net8.0/Sudoku.AssemblyInfoInputs.cache
+/Users/aijaco/RiderProjects/Sudoku/Sudoku/obj/Debug/net8.0/Sudoku.AssemblyInfo.cs
+/Users/aijaco/RiderProjects/Sudoku/Sudoku/obj/Debug/net8.0/Sudoku.csproj.CoreCompileInputs.cache
+/Users/aijaco/RiderProjects/Sudoku/Sudoku/obj/Debug/net8.0/Sudoku.dll
+/Users/aijaco/RiderProjects/Sudoku/Sudoku/obj/Debug/net8.0/refint/Sudoku.dll
+/Users/aijaco/RiderProjects/Sudoku/Sudoku/obj/Debug/net8.0/Sudoku.pdb
+/Users/aijaco/RiderProjects/Sudoku/Sudoku/obj/Debug/net8.0/ref/Sudoku.dll

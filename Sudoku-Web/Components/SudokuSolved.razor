@@ -1,0 +1,54 @@
+@inject BoardService BoardService
+@implements IDisposable
+@using Sudoku_Web.Services
+@using Board = Sudoku_Library.Board
+@using Cell = Sudoku_Library.Cell
+
+<div class="board" style="--board-size: @Board.Size">
+    @foreach (var cell in Board) 
+    {
+        <input class="cell"
+               style="background-color: @GetColorOf(cell)"
+               type="text"
+               maxlength="1"
+               readonly="@true"
+               value=@(cell.Value.ToString())
+        />
+    }
+</div>
+
+@code {
+
+    private Board Board => BoardService.GetBoard();
+    
+    // List of colors to cycle through
+    private string[] colors = ["indianred", "sandybrown", "khaki", "darkseagreen", "mediumaquamarine", "cadetblue", "cornflowerblue", "mediumslateblue", "rosybrown"];
+    private int nColors => colors.Length;
+    
+    // Value in range [0, Size-1] that changes according to timer
+    private int cycle = 0;
+    private Timer? timer;
+    
+    protected override void OnInitialized()
+    {
+        // Start a timer that updates the cycle every second
+        timer = new Timer(UpdateCycle, null, 1000, 1000);
+    }
+
+    private void UpdateCycle(object? state)
+    {
+        cycle = (cycle + 1) % Board.Size;
+        InvokeAsync(StateHasChanged);
+    }
+        
+    private string GetColorOf(Sudoku_Library.Cell cell)
+    {
+        var idx = (cell.Value + cycle - 1) % nColors;
+        return colors[idx];
+    }
+
+    public void Dispose()
+    {
+        timer?.Dispose();
+    }
+}

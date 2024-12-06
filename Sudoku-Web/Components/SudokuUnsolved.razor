@@ -1,0 +1,86 @@
+@inject BoardService BoardService
+@using Sudoku_Web.Services
+@using Board = Sudoku_Library.Board
+
+<div class="board" style="--board-size: @Board.Size; --subgrid-size: @Board.Subsize">
+    @for (int i = 0; i < Board.Size; i++)
+    {
+        @for (int j = 0; j < Board.Size; j++)
+        {
+            int row = i, col = j;
+            var cell = Board.Get(row, col);
+            var entry = entries[row, col];
+            <input class="@($"cell {(cell.IsValid || entry == "" ? "valid" : "invalid")} {(cell.IsFixed ? "fixed" : "unfixed")}")"
+                   type="text"
+                   maxlength="1"
+                   readonly="@cell.IsFixed"
+                   value="@entry"
+              @oninput="e => HandleInput(row, col, e)"
+            />
+        }
+    }
+</div>
+
+@code {
+    public Board Board => BoardService.GetBoard();
+    private string[,] entries;
+    
+    protected override void OnInitialized()
+    {
+        BoardService.BoardReset += OnBoardReset;
+        BoardService.BoardChanged += OnBoardChanged;
+        InitializeEntries();
+    }
+
+    protected void OnBoardReset()
+    {
+        InitializeEntries();
+        StateHasChanged();
+    }
+
+    protected void OnBoardChanged()
+    {
+        StateHasChanged();
+    }
+
+    public void Dispose()
+    {
+        BoardService.BoardChanged -= OnBoardReset;
+        BoardService.BoardChanged -= OnBoardChanged;
+
+    }
+
+    private void InitializeEntries()
+    {
+        entries = new string[Board.Size, Board.Size];
+        for (int i = 0; i < Board.Size; i++)
+        {
+            for (int j = 0; j < Board.Size; j++)
+            {
+                var cell = Board.Get(i, j);
+                entries[i, j] = cell.Value == 0 ? "" : cell.Value.ToString();
+            }
+        }
+    }
+
+    private void HandleInput(int row, int col, ChangeEventArgs e)
+    {
+        
+        // Parse new value
+        entries[row, col] = e.Value?.ToString();
+        if (!byte.TryParse(entries[row, col], out var value) || value > Board.Size)
+        {
+            // Update entry
+            value = 0;
+        }
+        
+        // Update cell
+        if (value != Board.Get(row, col).Value)
+        {
+            Board.Set(row, col, value);
+            BoardService.OnBoardChanged();
+        }
+        
+    }
+    
+}    
